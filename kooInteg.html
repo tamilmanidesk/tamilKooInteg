@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REDIRECTING.....</title>
+
+
+</head>
+<body>
+
+
+<script>
+var queryParamsMap = {};
+var params = window.location.href.split('?')[1].split('&');
+params.forEach(function(param){
+	var keyVal = param.split('=');
+	queryParamsMap[keyVal[0]] = keyVal[1];
+});
+
+//document.getElementById("home").innerText=JSON.stringify(queryParamsMap);
+console.log(queryParamsMap)
+let entity=queryParamsMap.entity; 
+let packagename=null;
+let reviewId=null;
+let id=queryParamsMap.id;
+let parentId=queryParamsMap.parentId;
+if(entity == "ticket"){
+		if(id.indexOf("___") != -1){
+			packagename=id.split("___")[1];
+			reviewId=id.split("___")[0];
+		}else{
+			packagename=id;
+		}
+
+}else if(entity == "thread"){
+	
+		let ids=id.split("___");
+	
+		packagename=ids[1];
+		reviewId=ids[0];
+		if(Number(packagename))
+		{
+				if(parentId.indexOf("___") == -1)
+				{
+					
+					packagename=parentId;
+				}
+				else
+				{
+					packagename=parentId.split("___")[1];	
+				}
+		}
+		
+	
+}
+
+let redirectURL=`https://play.google.com/store/apps/details?id=${packagename}`;
+if(reviewId != null){
+	redirectURL=`${redirectURL}&reviewId=${encodeURIComponent(reviewId)}`;
+}
+
+window.location.href=redirectURL;
+
+</script>
+</body>
+</html>

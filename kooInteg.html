@@ -23,42 +23,8 @@ let entity=queryParamsMap.entity;
 let packagename=null;
 let reviewId=null;
 let id=queryParamsMap.id;
-let parentId=queryParamsMap.parentId;
-if(entity == "ticket"){
-		if(id.indexOf("___") != -1){
-			packagename=id.split("___")[1];
-			reviewId=id.split("___")[0];
-		}else{
-			packagename=id;
-		}
 
-}else if(entity == "thread"){
-	
-		let ids=id.split("___");
-	
-		packagename=ids[1];
-		reviewId=ids[0];
-		if(Number(packagename))
-		{
-				if(parentId.indexOf("___") == -1)
-				{
-					
-					packagename=parentId;
-				}
-				else
-				{
-					packagename=parentId.split("___")[1];	
-				}
-		}
-		
-	
-}
-
-let redirectURL=`https://play.google.com/store/apps/details?id=${packagename}`;
-if(reviewId != null){
-	redirectURL=`${redirectURL}&reviewId=${encodeURIComponent(reviewId)}`;
-}
-
+let redirectURL=`https://www.kooapp.com/koo/${id}`;
 window.location.href=redirectURL;
 
 </script>
